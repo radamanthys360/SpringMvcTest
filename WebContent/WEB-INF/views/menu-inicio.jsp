@@ -24,7 +24,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 well">
-						<a href="#">Formulario Taringuero</a>
+						<a href="taringuero/mostrarform">Formulario Taringuero</a>
 					</div>
 				</div>
 			</div>
