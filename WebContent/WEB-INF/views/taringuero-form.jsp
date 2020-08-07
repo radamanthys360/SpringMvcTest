@@ -23,9 +23,11 @@
 <form:form action="procesarform" modelAttribute="taringueroDto">
 	<div class="container">
 		<div class="form-group row">
-			<label for="nombreUsuario" class="col-sm-2 col-form-label">Nombre Usuario</label>
+			<label for="nombreUsuario" class="col-sm-2 col-form-label">Nombre Usuario (*)</label>
 			<div class="col-sm-10">
-			   <form:input path="nombreUsuario" class="form-control" placeholder="Usuario" />
+			     <form:input path="nombreUsuario" class="form-control" placeholder="Usuario" required="required"/>
+			     <form:errors path="nombreUsuario" class="alert-danger" />
+<%-- 			   <form:input path="nombreUsuario" class="form-control" placeholder="Usuario" required="required"/> --%>
 			</div>
 		</div>
 		
@@ -35,10 +37,12 @@
             	<form:input path="edad" type="number" class="form-control" placeholder="Edad" />
             </div>
             <div class="col-md-6 well">
-                <label for="genero">Genero</label>
-			    <form:select path="genero" class="form-control">
+                <label for="genero">Genero (*)</label>
+                <form:select path="genero" class="custom-select browser-default" required="required">
+<%-- 			    <form:select path="genero" class="custom-select browser-default" required="required"> --%>
 					<form:options items="${taringueroDto.generoOptions}" />
 				</form:select>
+				<form:errors path="genero" class="alert-danger" />
             </div>
         </div>
         
@@ -52,16 +56,19 @@
 		</div>
 		
 		<div class="form-group row">
-			<label for="virgo" class="col-sm-12 col-form-label">Sigo virgo (pagando no se vale, con primas si)</label>
+			<label for="virgo" class="col-sm-12 col-form-label">Sigo virgo (pagando no se vale, con primas si) (*)</label>
 			<div class="col-sm-12">
 				<div class="form-check form-check-inline">
-				  <form:radiobutton path="sigoVirgo" value="S" class="form-check-input"/>
+				  <form:radiobutton path="sigoVirgo" value="S" class="form-check-input" required="required"/>
+<%-- 				  <form:radiobutton path="sigoVirgo" value="S" class="form-check-input" required="required"/> --%>
 				  <label class="form-check-label" for="inlineRadio1">Si</label>
 				</div>
 				<div class="form-check form-check-inline">
-				  <form:radiobutton path="sigoVirgo" value="N" class="form-check-input"/>
+				  <form:radiobutton path="sigoVirgo" value="N" class="form-check-input" required="required"/>
+<%-- 				  <form:radiobutton path="sigoVirgo" value="N" class="form-check-input" required="required"/> --%>
 				  <label class="form-check-label" for="inlineRadio2">No</label>
 				</div>
+				<form:errors path="sigoVirgo" class="alert-danger" />
 			</div>
 		</div>
 		
