@@ -1,7 +1,10 @@
 package com.springdemo.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +14,16 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.springdemo.db.entity.Genero;
 import com.springdemo.dto.TaringueroDto;
+import com.springdemo.services.GeneroServices;
 
 @Controller
 @RequestMapping("/taringuero")
 public class TaringueroController {
+	
+	@Autowired
+	GeneroServices generoServices;
 	
 	//metodo para quitar espacios en blanco
 	@InitBinder
@@ -38,6 +46,12 @@ public class TaringueroController {
 			return "taringuero-form";
 		}
 		else {
+			
+			List<Genero> allGenero = generoServices.getAllGenero();
+			for (Genero genero : allGenero) {
+				System.out.println("generos "+genero.getTipo());
+			}
+			
 			System.out.println("nombreUsuario "+taringueroDto.getNombreUsuario());
 			System.out.println("edad "+taringueroDto.getEdad().toString());
 			System.out.println("genero "+taringueroDto.getGenero());
