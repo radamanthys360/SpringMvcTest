@@ -20,6 +20,25 @@
         </div>
 </div>
 <hr>
+
+<c:if test="${not empty guardar}">
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>Importante : </strong> ${mensaje}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+</c:if>
+
+<c:if test="${not empty error}">
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Importante : </strong> ${mensaje}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+</c:if>
+
 <form:form action="procesarform" modelAttribute="taringueroDto">
 	<div class="container">
 		<div class="form-group row">
@@ -40,7 +59,7 @@
                 <label for="genero">Genero (*)</label>
                 <form:select path="genero" class="custom-select browser-default" required="required">
 <%-- 			    <form:select path="genero" class="custom-select browser-default" required="required"> --%>
-					<form:options items="${taringueroDto.generoOptions}" />
+					<form:options items="${getgenero}" />
 				</form:select>
 				<form:errors path="genero" class="alert-danger" />
             </div>
@@ -50,7 +69,7 @@
 			<label for="versiones" class="col-sm-12 col-form-label">¿Versiones de Taringa que has visto?</label>
 			<div class="col-sm-12">
 			  <div class="custom-control custom-checkbox custom-control-inline">
-                <form:checkboxes cssStyle="custom-control-input" items="${taringueroDto.versionesData}" path="versiones" />
+                <form:checkboxes cssStyle="custom-control-input" items="${getversiones}" path="versiones" />
               </div>
 			</div>
 		</div>

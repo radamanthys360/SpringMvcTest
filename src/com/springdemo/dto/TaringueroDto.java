@@ -1,13 +1,12 @@
 package com.springdemo.dto;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 public class TaringueroDto {
+	
 	
 	@NotNull(message="Es requerido")
 	@Size(min=1, message="Es requerido")
@@ -19,9 +18,6 @@ public class TaringueroDto {
 	@Size(min=1, message="Es requerido")
 	private String genero;
 	
-	
-	private LinkedHashMap<String, String> generoOptions;
-	
 	@NotNull(message="Es requerido")
 	@Size(min=1, message="Es requerido")
 	private String sigoVirgo;
@@ -29,24 +25,8 @@ public class TaringueroDto {
 	private String facha;
 	
 	private String[] versiones;
-	private List<String> versionesData;
 	
 	public TaringueroDto() {
-		//para llenar combo de genero
-		generoOptions = new LinkedHashMap<>();
-		generoOptions.put("", "Selecciona uno");
-		generoOptions.put("M", "Masculino");
-		generoOptions.put("F", "Femenino");
-		generoOptions.put("NS", "No Sabe");
-		
-		//versiones de taringa existentes
-		versionesData = new ArrayList<String>();
-		versionesData.add("V1");
-		versionesData.add("V2");
-		versionesData.add("V3");
-		versionesData.add("V4");
-		versionesData.add("V5");
-		versionesData.add("V6");
 	}
 
 	public String getNombreUsuario() {
@@ -95,22 +75,6 @@ public class TaringueroDto {
 
 	public void setVersiones(String[] versiones) {
 		this.versiones = versiones;
-	}
-
-	public LinkedHashMap<String, String> getGeneroOptions() {
-		return generoOptions;
-	}
-
-	public void setGeneroOptions(LinkedHashMap<String, String> generoOptions) {
-		this.generoOptions = generoOptions;
-	}
-
-	public List<String> getVersionesData() {
-		return versionesData;
-	}
-
-	public void setVersionesData(List<String> versionesData) {
-		this.versionesData = versionesData;
 	}
 
 }

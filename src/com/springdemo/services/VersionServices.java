@@ -9,24 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springdemo.db.entity.Genero;
-import com.springdemo.db.repository.GeneroRepository;
+import com.springdemo.db.entity.Version;
+import com.springdemo.db.repository.VersionRepository;
 
 @Service
-public class GeneroServices {
-
+public class VersionServices {
+	
 	@Autowired
-	private GeneroRepository<Genero> generoRepository;
+	private VersionRepository<Version> versionRepository;
 	
 	@Transactional
-	public List<Genero> getAllGenero() {
-		return (List<Genero>) generoRepository.findAll();
+	public List<Version> getAllVersion() {
+		return (List<Version>) versionRepository.findAll();
 	}
 	
 	@Transactional
-	public Optional<Genero> getGenero(String id) {
-		return  Optional.ofNullable(generoRepository.findById(id)
+	public Optional<Version> getVersion(String id) {
+		return  Optional.ofNullable(versionRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(id)));
 	}
-	
+
 }
