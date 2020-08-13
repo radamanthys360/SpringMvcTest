@@ -116,13 +116,14 @@
 </form:form>
 <hr>
 
-<!-- <nav class="navbar navbar-light bg-light justify-content-between"> -->
-<!--   <a class="navbar-brand"></a> -->
-<%--   <form class="form-inline"> --%>
-<!--     <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar"> -->
-<!--     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button> -->
-<%--   </form> --%>
-<!-- </nav> -->
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand"></a>
+  <form:form class="form-inline" action="busquedaTabla">
+    <input name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" required="required">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    <a href="mostrarform" class="btn btn-outline-success my-2 my-sm-0" role="button">Limpiar</a>
+ </form:form>
+</nav>
 
 
 <div class="table-responsive">
@@ -157,11 +158,13 @@
 						<c:forEach items="${paginador}" var="pag">
 						   <c:if test="${param.pagg == pag}">
                                <li class="page-item active"><a class="page-link"
-								href="mostrarformP?pagg=${pag}">${pag}</a></li>
+								href="mostrarformP?pagg=${pag}&tipo=${busqueda}&bus=${bus}">
+								${pag}</a></li>
                            </c:if>
                            <c:if test="${param.pagg != pag}">
                                <li class="page-item"><a class="page-link"
-								href="mostrarformP?pagg=${pag}">${pag}</a></li>
+								href="mostrarformP?pagg=${pag}&tipo=${busqueda}&bus=${bus}">
+								${pag}</a></li>
                            </c:if>
 						</c:forEach>
 					</ul>

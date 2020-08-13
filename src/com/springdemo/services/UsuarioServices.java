@@ -3,7 +3,6 @@ package com.springdemo.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +33,8 @@ public class UsuarioServices {
 	@Transactional
 	public List<TaringueroDto> retornarSetUsuarios(Pageable pageable){
 		List<TaringueroDto> usuarios = new ArrayList<TaringueroDto>();
-		for (Usuario var : getPaginado(pageable)) {
+		Page<Usuario> paginado = getPaginado(pageable);
+		for (Usuario var : paginado) {
 			String versionesTexto = "";
 			TaringueroDto taringueroDtoT = new TaringueroDto();
 			taringueroDtoT.setNombreUsuario(var.getNombreUsuario());
@@ -51,6 +51,11 @@ public class UsuarioServices {
 				}
 			}
 			taringueroDtoT.setVersionestexto(versionesTexto);
+			List<Integer> ListaPaginador = new ArrayList<Integer>();
+			for (int i = 1; i <= paginado.getTotalPages(); i++) {
+				ListaPaginador.add(i);
+			}
+			taringueroDtoT.setDatosPaginador(ListaPaginador);
 			usuarios.add(taringueroDtoT);
 		}
 		return usuarios;
@@ -59,5 +64,35 @@ public class UsuarioServices {
 	public long getCount() {
 		return usuarioRepository.count();
 	}
-
+	
+	@Transactional
+	public List<TaringueroDto> busquedaTotal(String texto,Pageable pageable) {
+			List<TaringueroDto> usuarios = new ArrayList<TaringueroDto>();
+			Page<Usuario> busquedaTotal = usuarioRepository.busquedaTotal(texto,pageable);
+			for (Usuario var : busquedaTotal) {
+				String versionesTexto = "";
+				TaringueroDto taringueroDtoT = new TaringueroDto();
+				taringueroDtoT.setNombreUsuario(var.getNombreUsuario());
+				taringueroDtoT.setEdad(var.getEdad());
+				taringueroDtoT.setGenero(var.getGenero().getTipo());
+				taringueroDtoT.setSigoVirgo(var.getSigoVirgo());
+				taringueroDtoT.setFacha(var.getFacha());
+				Set<Version> versiones = var.getVersiones();
+				for (Version version : versiones) {
+					if(versiones.size() > 1) {
+						versionesTexto += version.getCodigo()+",";
+					}else {
+						versionesTexto += version.getCodigo();
+					}
+				}
+				taringueroDtoT.setVersionestexto(versionesTexto);
+				List<Integer> ListaPaginador = new ArrayList<Integer>();
+				for (int i = 1; i <= busquedaTotal.getTotalPages(); i++) {
+					ListaPaginador.add(i);
+				}
+				taringueroDtoT.setDatosPaginador(ListaPaginador);
+				usuarios.add(taringueroDtoT);
+			}
+			return usuarios; 
+	}
 }

@@ -83,47 +83,74 @@ public class TaringueroController {
 		modelo.addAttribute("taringueroDto",taringueroDtoF);
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
-		List<Integer> datosPaginador = datosPaginador();
+		List<Integer> datosPaginador = new ArrayList<Integer>();
+		if(! retornarSetUsuarios.isEmpty()) {
+			datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
+		}else {
+			datosPaginador.add(0);
+		}
 		modelo.addAttribute("paginador",datosPaginador);
-		String resultado = (datosPaginador.isEmpty())? "  No se han Encontrado Registros":"";
+		String resultado = (retornarSetUsuarios.isEmpty())? "  No se han Encontrado Registros":"";
 		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
+		modelo.addAttribute("busqueda","1");
 		return "taringuero-form";
 	}
 	
 	@RequestMapping(value = "/mostrarformP",method = RequestMethod.GET)
-	public String mostrarformPag(Model modelo,@RequestParam("pagg")Integer pag) {
+	public String mostrarformPag(Model modelo,@RequestParam("pagg")Integer pag,
+			                                  @RequestParam("tipo")Integer tipo,
+			                                  @RequestParam("bus")String texto) {
 		TaringueroDto taringueroDtoF = new TaringueroDto();
 		modelo.addAttribute("taringueroDto",taringueroDtoF);
 		//test
 		//llenando tabla por defecto el primer set de 5 registros
 		Pageable pageable = PageRequest.of((pag -1), SET_DATOS);
-		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
-		//ajustando elementos del paginador
-		List<Integer> datosPaginador = datosPaginador();
-		modelo.addAttribute("paginador",datosPaginador);
-		modelo.addAttribute("mensajeP","Pagina "+(pag)+" de "+datosPaginador.size());
+		if(tipo == 1) {
+			List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+			modelo.addAttribute("tabladata",retornarSetUsuarios);
+			//ajustando elementos del paginador
+			List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
+			modelo.addAttribute("paginador",datosPaginador);
+			modelo.addAttribute("mensajeP","Pagina "+(pag)+" de "+datosPaginador.size());
+			modelo.addAttribute("busqueda","1");
+		}else if(tipo == 2){
+			List<TaringueroDto> busquedaTotal = usuarioServices.busquedaTotal(texto, pageable);
+			modelo.addAttribute("tabladata",busquedaTotal);
+			//ajustando elementos del paginador
+			List<Integer> datosPaginador = busquedaTotal.get(0).getDatosPaginador();
+			modelo.addAttribute("paginador",datosPaginador);
+			String resultado = (datosPaginador.isEmpty())? "  No se han Encontrado Registros":"";
+			modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
+			modelo.addAttribute("busqueda","2");
+			modelo.addAttribute("bus",texto);
+		}
 		return "taringuero-form";
 	}
 	
-	
-	private List<Integer> datosPaginador() {
-		Integer count = Math.toIntExact(usuarioServices.getCount());
-		List<Integer> ListaPaginador = new ArrayList<Integer>();
-		if(count % SET_DATOS == 0) {
-			double decimal = count/SET_DATOS;
-			for (int i = 1; i <= (int)Math.round(decimal); i++) {
-				ListaPaginador.add(i);
-			}
+	@RequestMapping("/busquedaTabla")
+	public String busquedaTabla(Model modelo,@RequestParam(required = false,name = "buscar") String buscar) {
+		TaringueroDto taringueroDtoF = new TaringueroDto();
+		modelo.addAttribute("taringueroDto",taringueroDtoF);
+		//llenando tabla por defecto el primer set 
+		Pageable pageable = PageRequest.of(0, SET_DATOS);
+		List<TaringueroDto> busquedaTotal = usuarioServices.busquedaTotal(buscar, pageable);
+		modelo.addAttribute("tabladata",busquedaTotal);
+		//ajustando elementos del paginador
+		List<Integer> datosPaginador = new ArrayList<Integer>();
+		if(! busquedaTotal.isEmpty()) {
+			datosPaginador = busquedaTotal.get(0).getDatosPaginador();
 		}else {
-			 double decimal = count/SET_DATOS;
-			 Integer paginador = (int)Math.round(decimal);
-				for (int i = 1; i <= (paginador + 1); i++) {
-					ListaPaginador.add(i);
-			}
+			datosPaginador.add(0);
 		}
-		 return ListaPaginador;
+		modelo.addAttribute("paginador",datosPaginador);
+		String resultado = (busquedaTotal.isEmpty())? "  No se han Encontrado Registros":"";
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
+		modelo.addAttribute("busqueda","2");
+		modelo.addAttribute("bus",buscar);
+		return "taringuero-form";
 	}
 	
 	@RequestMapping("/procesarform")
@@ -176,11 +203,13 @@ public class TaringueroController {
 		modelo.addAttribute("mensaje","Guardado Correctamente");
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
-		List<Integer> datosPaginador = datosPaginador();
+		List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
 		modelo.addAttribute("paginador",datosPaginador);
 		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size());
+		modelo.addAttribute("busqueda","1");
 		return "taringuero-form";
 	}
 	
@@ -192,11 +221,13 @@ public class TaringueroController {
 		modelo.addAttribute("mensaje","Ha ocurrido un error al tratar de ejecutar la operacion");
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
-		List<Integer> datosPaginador = datosPaginador();
+		List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
 		modelo.addAttribute("paginador",datosPaginador);
 		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size());
+		modelo.addAttribute("busqueda","1");
 		return "taringuero-form";
 	}
 	

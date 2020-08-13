@@ -1,6 +1,8 @@
 package com.springdemo.dto;
 
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,6 +28,9 @@ public class TaringueroDto {
 	
 	private String[] versiones;
 	private String versionestexto;
+	
+	//paginacion
+	private List<Integer> datosPaginador;
 	
 	public TaringueroDto() {
 	}
@@ -86,5 +91,12 @@ public class TaringueroDto {
 		this.versionestexto = versionestexto;
 	}
 
+	public List<Integer> getDatosPaginador() {
+		return datosPaginador;
+	}
+
+	public void setDatosPaginador(List<Integer> datosPaginador) {
+		this.datosPaginador = datosPaginador;
+	}
 
 }
