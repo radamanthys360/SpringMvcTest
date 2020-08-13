@@ -115,6 +115,66 @@
 	</div>
 </form:form>
 <hr>
+
+<!-- <nav class="navbar navbar-light bg-light justify-content-between"> -->
+<!--   <a class="navbar-brand"></a> -->
+<%--   <form class="form-inline"> --%>
+<!--     <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar"> -->
+<!--     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button> -->
+<%--   </form> --%>
+<!-- </nav> -->
+
+
+<div class="table-responsive">
+  <table class="table table-hover">
+  <thead class="thead-dark">
+	<tr>
+	<th scope="col">Nombre Usuario</th>
+    <th scope="col">Edad</th>
+    <th scope="col">Genero</th>
+    <th scope="col">Sigo Virgo</th>
+    <th scope="col">El facha Tenia Razon</th>
+    <th scope="col">Versiones de Taringa</th>
+	</tr>
+   </thead>
+   <tbody>	
+	<c:forEach items="${tabladata}" var="fila" >
+		<tr>
+			<td>${fila.nombreUsuario}</td>
+	        <td>${fila.edad}</td>
+	        <td>${fila.genero}</td>
+	        <td>${fila.sigoVirgo}</td>
+	        <td>${fila.facha}</td>
+	        <td>${fila.versionestexto}</td>
+		</tr>
+	</c:forEach>
+	</tbody>
+   </table>
+
+		<div class="col-sm-12">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<c:forEach items="${paginador}" var="pag">
+						   <c:if test="${param.pagg == pag}">
+                               <li class="page-item active"><a class="page-link"
+								href="mostrarformP?pagg=${pag}">${pag}</a></li>
+                           </c:if>
+                           <c:if test="${param.pagg != pag}">
+                               <li class="page-item"><a class="page-link"
+								href="mostrarformP?pagg=${pag}">${pag}</a></li>
+                           </c:if>
+						</c:forEach>
+					</ul>
+				</nav>
+		</div>
+</div>
+
+<div class="col-sm-12">
+			<nav class="navbar navbar-light bg-light">
+				<span class="navbar-text">${mensajeP}</span>
+			</nav>
+</div>
+
   <!-- JavaScript Libraries -->
   <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>

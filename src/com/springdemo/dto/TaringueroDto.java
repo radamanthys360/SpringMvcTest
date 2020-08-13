@@ -25,6 +25,7 @@ public class TaringueroDto {
 	private String facha;
 	
 	private String[] versiones;
+	private String versionestexto;
 	
 	public TaringueroDto() {
 	}
@@ -76,5 +77,14 @@ public class TaringueroDto {
 	public void setVersiones(String[] versiones) {
 		this.versiones = versiones;
 	}
+
+	public String getVersionestexto() {
+		return versionestexto;
+	}
+
+	public void setVersionestexto(String versionestexto) {
+		this.versionestexto = versionestexto;
+	}
+
 
 }

@@ -6,11 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -19,6 +19,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springdemo.db.entity.Genero;
 import com.springdemo.db.entity.Usuario;
@@ -31,6 +33,8 @@ import com.springdemo.services.VersionServices;
 @Controller
 @RequestMapping("/taringuero")
 public class TaringueroController {
+	
+	private Integer SET_DATOS = 5;
 	
 	@Autowired
 	GeneroServices generoServices;
@@ -75,9 +79,51 @@ public class TaringueroController {
 	
 	@RequestMapping("/mostrarform")
 	public String mostrarform(Model modelo) {
-		TaringueroDto taringueroDto = new TaringueroDto();
-		modelo.addAttribute("taringueroDto",taringueroDto);
+		TaringueroDto taringueroDtoF = new TaringueroDto();
+		modelo.addAttribute("taringueroDto",taringueroDtoF);
+		//llenando tabla por defecto el primer set 
+		Pageable pageable = PageRequest.of(0, SET_DATOS);
+		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		//ajustando elementos del paginador
+		List<Integer> datosPaginador = datosPaginador();
+		modelo.addAttribute("paginador",datosPaginador);
+		String resultado = (datosPaginador.isEmpty())? "  No se han Encontrado Registros":"";
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
 		return "taringuero-form";
+	}
+	
+	@RequestMapping(value = "/mostrarformP",method = RequestMethod.GET)
+	public String mostrarformPag(Model modelo,@RequestParam("pagg")Integer pag) {
+		TaringueroDto taringueroDtoF = new TaringueroDto();
+		modelo.addAttribute("taringueroDto",taringueroDtoF);
+		//test
+		//llenando tabla por defecto el primer set de 5 registros
+		Pageable pageable = PageRequest.of((pag -1), SET_DATOS);
+		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		//ajustando elementos del paginador
+		List<Integer> datosPaginador = datosPaginador();
+		modelo.addAttribute("paginador",datosPaginador);
+		modelo.addAttribute("mensajeP","Pagina "+(pag)+" de "+datosPaginador.size());
+		return "taringuero-form";
+	}
+	
+	
+	private List<Integer> datosPaginador() {
+		Integer count = Math.toIntExact(usuarioServices.getCount());
+		List<Integer> ListaPaginador = new ArrayList<Integer>();
+		if(count % SET_DATOS == 0) {
+			double decimal = count/SET_DATOS;
+			for (int i = 1; i <= (int)Math.round(decimal); i++) {
+				ListaPaginador.add(i);
+			}
+		}else {
+			 double decimal = count/SET_DATOS;
+			 Integer paginador = (int)Math.round(decimal);
+				for (int i = 1; i <= (paginador + 1); i++) {
+					ListaPaginador.add(i);
+			}
+		}
+		 return ListaPaginador;
 	}
 	
 	@RequestMapping("/procesarform")
@@ -128,6 +174,13 @@ public class TaringueroController {
 		modelo.addAttribute("taringueroDto",taringueroDto);
 		modelo.addAttribute("guardar","S");
 		modelo.addAttribute("mensaje","Guardado Correctamente");
+		//llenando tabla por defecto el primer set 
+		Pageable pageable = PageRequest.of(0, SET_DATOS);
+		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		//ajustando elementos del paginador
+		List<Integer> datosPaginador = datosPaginador();
+		modelo.addAttribute("paginador",datosPaginador);
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size());
 		return "taringuero-form";
 	}
 	
@@ -137,9 +190,15 @@ public class TaringueroController {
 		modelo.addAttribute("taringueroDto",taringueroDto);
 		modelo.addAttribute("error","S");
 		modelo.addAttribute("mensaje","Ha ocurrido un error al tratar de ejecutar la operacion");
+		//llenando tabla por defecto el primer set 
+		Pageable pageable = PageRequest.of(0, SET_DATOS);
+		modelo.addAttribute("tabladata",usuarioServices.retornarSetUsuarios(pageable));
+		//ajustando elementos del paginador
+		List<Integer> datosPaginador = datosPaginador();
+		modelo.addAttribute("paginador",datosPaginador);
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size());
 		return "taringuero-form";
 	}
-	
 	
 	
 }
