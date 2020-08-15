@@ -162,7 +162,17 @@ public class TaringueroController {
 		}
 		else {
 			try {
-				Usuario usuario = new Usuario();
+				Usuario usuario;
+				if(taringueroDto.getId() != null) {
+					Optional<Usuario> buscarPorId = usuarioServices.buscarPorId(taringueroDto.getId());
+					if(buscarPorId.isPresent()) {
+					   usuario = buscarPorId.get();
+					}else {
+						throw new Exception();
+					}
+				}else {
+					usuario = new Usuario();
+				}
 				usuario.setNombreUsuario(taringueroDto.getNombreUsuario());
 			    usuario.setEdad(taringueroDto.getEdad());
 			    Optional<Genero> genero2 = generoServices.getGenero(taringueroDto.getGenero());
@@ -195,12 +205,17 @@ public class TaringueroController {
 		}
 	}
 	
-	@RequestMapping("/modificar")
-	public String modificar(Model modelo) {
-		TaringueroDto taringueroDto = new TaringueroDto();
-		modelo.addAttribute("taringueroDto",taringueroDto);
-		modelo.addAttribute("guardar","S");
-		modelo.addAttribute("mensaje","Guardado Correctamente");
+	@RequestMapping(value = "/modificar")
+	public String modificar(@RequestParam(required = false,name = "id") Long id,Model modelo) {
+		if(id == null){
+			TaringueroDto taringueroDto = new TaringueroDto();
+			modelo.addAttribute("taringueroDto",taringueroDto);
+			modelo.addAttribute("guardar","S");
+			modelo.addAttribute("mensaje","Guardado Correctamente");
+		}else {
+			TaringueroDto taringueroDto = usuarioServices.buscarPorIdDto(id);
+			modelo.addAttribute("taringueroDto",taringueroDto);
+		}
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
 		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);

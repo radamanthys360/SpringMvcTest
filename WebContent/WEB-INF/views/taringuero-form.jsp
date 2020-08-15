@@ -40,6 +40,7 @@
 </c:if>
 
 <form:form action="procesarform" modelAttribute="taringueroDto">
+<form:hidden path="id" />
 	<div class="container">
 		<div class="form-group row">
 			<label for="nombreUsuario" class="col-sm-2 col-form-label">Nombre Usuario (*)</label>
@@ -107,7 +108,7 @@
 		
 		<div class="form-group row">
 			<div class="col-sm-6">
-                <button class="btn btn-primary" type="submit">Aceptar</button>
+                <button class="btn btn-primary" type="submit">Guardar</button>
                 <button type="reset" class="btn btn-warning" type="reset" value="Reset">Cancelar</button>
 			</div>
 		</div>
@@ -136,6 +137,7 @@
     <th scope="col">Sigo Virgo</th>
     <th scope="col">El facha Tenia Razon</th>
     <th scope="col">Versiones de Taringa</th>
+    <th scope="col">Modificar</th>
 	</tr>
    </thead>
    <tbody>	
@@ -147,6 +149,12 @@
 	        <td>${fila.sigoVirgo}</td>
 	        <td>${fila.facha}</td>
 	        <td>${fila.versionestexto}</td>
+	        <td>
+	          <form:form class="form-inline" action="modificar">
+	            <input type="hidden" name="id" class="form-control mr-sm-2"  value="${fila.id}">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Modificar</button>
+              </form:form>
+            </td>
 		</tr>
 	</c:forEach>
 	</tbody>

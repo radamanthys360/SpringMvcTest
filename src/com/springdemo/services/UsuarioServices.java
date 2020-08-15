@@ -2,6 +2,7 @@ package com.springdemo.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,7 @@ public class UsuarioServices {
 		for (Usuario var : paginado) {
 			String versionesTexto = "";
 			TaringueroDto taringueroDtoT = new TaringueroDto();
+			taringueroDtoT.setId(var.getCodigo());
 			taringueroDtoT.setNombreUsuario(var.getNombreUsuario());
 			taringueroDtoT.setEdad(var.getEdad());
 			taringueroDtoT.setGenero(var.getGenero().getTipo());
@@ -72,6 +74,7 @@ public class UsuarioServices {
 			for (Usuario var : busquedaTotal) {
 				String versionesTexto = "";
 				TaringueroDto taringueroDtoT = new TaringueroDto();
+				taringueroDtoT.setId(var.getCodigo());
 				taringueroDtoT.setNombreUsuario(var.getNombreUsuario());
 				taringueroDtoT.setEdad(var.getEdad());
 				taringueroDtoT.setGenero(var.getGenero().getTipo());
@@ -94,5 +97,46 @@ public class UsuarioServices {
 				usuarios.add(taringueroDtoT);
 			}
 			return usuarios; 
+	}
+	
+	@Transactional
+	public Optional<Usuario> buscarPorId(Long id) {
+		return usuarioRepository.findById(id);
+	}
+	
+	@Transactional
+	public TaringueroDto buscarPorIdDto(Long id) {
+		Optional<Usuario> entidad = buscarPorId(id);
+		if(entidad.isPresent()) {
+			int contador = 0;
+			Usuario var = entidad.get();
+			String versionesTexto = "";
+			TaringueroDto taringueroDtoT = new TaringueroDto();
+			taringueroDtoT.setId(var.getCodigo());
+			taringueroDtoT.setNombreUsuario(var.getNombreUsuario());
+			taringueroDtoT.setEdad(var.getEdad());
+			taringueroDtoT.setGenero(var.getGenero().getTipo());
+			taringueroDtoT.setSigoVirgo(var.getSigoVirgo());
+			taringueroDtoT.setFacha(var.getFacha());
+			Set<Version> versiones = var.getVersiones();
+			String[] versionesDto = new String[versiones.size()];;
+			for (Version version : versiones) {
+				if(versiones.size() > 1) {
+					versionesTexto += version.getCodigo()+",";
+					versionesDto[contador] = version.getCodigo();
+					contador++;
+				}else {
+					versionesTexto += version.getCodigo();
+					versionesDto[contador] = version.getCodigo();
+					contador++;
+				}
+			}
+			taringueroDtoT.setVersiones(versionesDto);
+			taringueroDtoT.setVersionestexto(versionesTexto);
+			return taringueroDtoT;
+		}else {
+			return null;
+		}
+			
 	}
 }

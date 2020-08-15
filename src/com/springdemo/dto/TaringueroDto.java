@@ -2,13 +2,12 @@ package com.springdemo.dto;
 
 
 import java.util.List;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 public class TaringueroDto {
-	
+
+	private Long id;
 	
 	@NotNull(message="Es requerido")
 	@Size(min=1, message="Es requerido")
@@ -97,6 +96,14 @@ public class TaringueroDto {
 
 	public void setDatosPaginador(List<Integer> datosPaginador) {
 		this.datosPaginador = datosPaginador;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

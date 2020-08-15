@@ -1,6 +1,7 @@
 package com.springdemo.db.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "CODIGO", updatable = false, nullable = false)
 	private Long codigo;
 	
 	@Column(name="NOMBRE_USUARIO", length=25, nullable=false)
@@ -108,6 +110,19 @@ public class Usuario {
 
 	public void setVersiones(Set<Version> versiones) {
 		this.versiones = versiones;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(getCodigo());
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario book = (Usuario) o;
+        return Objects.equals(getCodigo(), book.getCodigo());
 	}
 	
 }
