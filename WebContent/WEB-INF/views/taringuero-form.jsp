@@ -138,6 +138,7 @@
     <th scope="col">El facha Tenia Razon</th>
     <th scope="col">Versiones de Taringa</th>
     <th scope="col">Modificar</th>
+    <th scope="col">Eliminar</th>
 	</tr>
    </thead>
    <tbody>	
@@ -155,10 +156,35 @@
                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Modificar</button>
               </form:form>
             </td>
+           <td>
+			<button type="button" class="btn btn-outline-dark my-2 my-sm-0" 
+			         data-toggle="modal" data-target="#exampleModal">
+			  Eliminar
+			</button>
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">¿Esta Seguro de Eliminar?</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        No podra recuperar el registro (No hacemos backup de la DB).
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				        <a href="eliminar?id=${fila.id}" class="btn btn-primary" role="button">Aceptar</a>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+            </td>
 		</tr>
 	</c:forEach>
 	</tbody>
-   </table>
+   </table>  
 
 		<div class="col-sm-12">
 				<nav aria-label="Page navigation example">

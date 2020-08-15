@@ -89,8 +89,6 @@ public class TaringueroController {
 		List<Integer> datosPaginador = new ArrayList<Integer>();
 		if(! retornarSetUsuarios.isEmpty()) {
 			datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
-		}else {
-			datosPaginador.add(0);
 		}
 		modelo.addAttribute("paginador",datosPaginador);
 		String resultado = (retornarSetUsuarios.isEmpty())? "  No se han Encontrado Registros":"";
@@ -142,8 +140,6 @@ public class TaringueroController {
 		List<Integer> datosPaginador = new ArrayList<Integer>();
 		if(! busquedaTotal.isEmpty()) {
 			datosPaginador = busquedaTotal.get(0).getDatosPaginador();
-		}else {
-			datosPaginador.add(0);
 		}
 		modelo.addAttribute("paginador",datosPaginador);
 		String resultado = (busquedaTotal.isEmpty())? "  No se han Encontrado Registros":"";
@@ -223,7 +219,8 @@ public class TaringueroController {
 		//ajustando elementos del paginador
 		List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
 		modelo.addAttribute("paginador",datosPaginador);
-		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size());
+		String resultado = (retornarSetUsuarios.isEmpty())? "  No se han Encontrado Registros":"";
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
 		modelo.addAttribute("busqueda","1");
 		return "taringuero-form";
 	}
@@ -239,12 +236,39 @@ public class TaringueroController {
 		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
 		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
-		List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
+		List<Integer> datosPaginador = new ArrayList<Integer>();
+		if(! retornarSetUsuarios.isEmpty()) {
+			datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
+		}
 		modelo.addAttribute("paginador",datosPaginador);
-		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size());
+		String resultado = (retornarSetUsuarios.isEmpty())? "  No se han Encontrado Registros":"";
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
 		modelo.addAttribute("busqueda","1");
 		return "taringuero-form";
 	}
 	
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam(required = false,name = "id") Long id,Model modelo) {
+		//eliminando registro
+		usuarioServices.eliminar(id);
+		TaringueroDto taringueroDto = new TaringueroDto();
+		modelo.addAttribute("taringueroDto",taringueroDto);
+		modelo.addAttribute("guardar","S");
+		modelo.addAttribute("mensaje","Eliminado Correctamente");
+		//llenando tabla por defecto el primer set 
+		Pageable pageable = PageRequest.of(0, SET_DATOS);
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		modelo.addAttribute("tabladata",retornarSetUsuarios);
+		//ajustando elementos del paginador
+		List<Integer> datosPaginador = new ArrayList<Integer>();
+		if(! retornarSetUsuarios.isEmpty()) {
+			datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
+		}
+		modelo.addAttribute("paginador",datosPaginador);
+		String resultado = (retornarSetUsuarios.isEmpty())? "  No se han Encontrado Registros":"";
+		modelo.addAttribute("mensajeP","Pagina 1 de "+datosPaginador.size()+resultado);
+		modelo.addAttribute("busqueda","1");
+		return "taringuero-form";
+	}
 	
 }

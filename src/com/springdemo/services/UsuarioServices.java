@@ -139,4 +139,9 @@ public class UsuarioServices {
 		}
 			
 	}
+	
+	public void eliminar(Long id) {
+		usuarioRepository.deleteById(id);
+	}
+	
 }
