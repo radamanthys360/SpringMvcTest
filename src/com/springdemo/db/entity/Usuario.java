@@ -121,8 +121,8 @@ public class Usuario {
 	public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Usuario)) return false;
-        Usuario book = (Usuario) o;
-        return Objects.equals(getCodigo(), book.getCodigo());
+        Usuario obj = (Usuario) o;
+        return Objects.equals(getCodigo(), obj.getCodigo());
 	}
 	
 }

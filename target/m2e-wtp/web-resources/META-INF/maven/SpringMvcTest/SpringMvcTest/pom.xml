@@ -104,6 +104,31 @@
 		<version>1.2</version>
 	</dependency>
 	
+<!-- 	para testeo -->
+	<dependency>
+		<groupId>org.junit.jupiter</groupId>
+		<artifactId>junit-jupiter</artifactId>
+		<version>5.7.0-M1</version>
+		<scope>test</scope>
+	</dependency>
+		
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>5.2.8.RELEASE</version>
+	    <scope>test</scope>
+	</dependency>
+	
+	<dependency>
+	   <groupId>org.slf4j</groupId>
+	   <artifactId>slf4j-simple</artifactId>
+	   <version>1.7.30</version>
+	   <scope>test</scope>
+	</dependency>
+	
+
+<!--fin para testeo -->	
+	
 	
   </dependencies>
 </project>

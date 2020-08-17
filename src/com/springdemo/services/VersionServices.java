@@ -28,5 +28,15 @@ public class VersionServices {
 		return  Optional.ofNullable(versionRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(id)));
 	}
-
+	
+	//son para test
+    public String pruebatexto() {
+    	return "correcto";
+    }
+    
+    //son para test
+    public Double pruebaNumero(Double var1,Double var2) {
+    	return (var1*var2);
+    }
+    
 }
