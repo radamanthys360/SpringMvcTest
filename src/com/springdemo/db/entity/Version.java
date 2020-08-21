@@ -20,6 +20,11 @@ public class Version {
 	public Version() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Version(String codigo,String descripcion) {
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+	}
 
 	public String getCodigo() {
 		return codigo;

@@ -1,7 +1,7 @@
 package com.test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -62,16 +62,18 @@ class Testversion {
 	@Disabled("Ya esta testeado")
 	@Test
 	public void getVersion() {
-		Optional<Version> version = versionServices.getVersion("V1");
+		Optional<Version> version = versionServices.getVersion("V9");
 		if(version.isPresent()) {
 			Version version2 = version.get();
 			System.out.println("*** registro **** "+
 					           "*** Codigo **** "+version2.getCodigo()+
 					           "*** Descripcion **** "+version2.getDescripcion());
+			assertNotNull(version2, () -> "Version trae valor");
 		}else {
+			Version version2 = null;
+			assertNull(version2, () -> "version no trae valor");
 			System.out.println("*** registro No encontrado **** ");
 		}
-		assertTrue(version instanceof Optional);
 	}
 	
 	@Disabled("Ya esta testeado")
@@ -85,9 +87,10 @@ class Testversion {
 			           "*** Codigo **** "+taringueroDto.getId()+
 			           "*** Nombre Usuario **** "+taringueroDto.getNombreUsuario());
 		}
+		assertTrue(retornarSetUsuarios.size() >= 0);
 	}
 	
-	@Disabled("Ya esta testeado")
+	//@Disabled("Ya esta testeado")
 	@Test
 	@Rollback(false)
 	public void guardarUsuario() {
@@ -141,8 +144,8 @@ class Testversion {
 			    }
 			}
 			usuario.setVersiones(listaUsuVer);
-			usuarioServices.guardar(usuario);
-			//throw new Exception();
+			Usuario guardado = usuarioServices.guardar(usuario);
+			assertNotNull(guardado, () -> "Version guardada correctamente");
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

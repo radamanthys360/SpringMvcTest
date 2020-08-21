@@ -3,8 +3,6 @@ package com.springdemo.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +23,7 @@ public class VersionServices {
 	
 	@Transactional
 	public Optional<Version> getVersion(String id) {
-		return  Optional.ofNullable(versionRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(id)));
+		return  versionRepository.findById(id);
 	}
 	
 	//son para test

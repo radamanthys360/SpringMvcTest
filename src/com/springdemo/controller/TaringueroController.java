@@ -38,7 +38,7 @@ public class TaringueroController {
 	
 	@Autowired
 	GeneroServices generoServices;
-	
+
 	@Autowired
 	VersionServices versionServices;
 	
@@ -50,6 +50,11 @@ public class TaringueroController {
 	public void initBinder(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
+	
+	@RequestMapping(value = "/prueba",method = RequestMethod.POST)
+	public String prueba(){
+		return "hola";
 	}
 	
 	@ModelAttribute("getgenero")
@@ -152,7 +157,7 @@ public class TaringueroController {
 	@RequestMapping("/procesarform")
 	public String procesarform(@Valid @ModelAttribute("taringueroDto") TaringueroDto taringueroDto,
 			                   BindingResult theBindingResult) {
-		//System.err.println(theBindingResult);
+		//System.err.println("usuario "+ taringueroDto.getNombreUsuario());
 		if (theBindingResult.hasErrors()) {
 			return "taringuero-form";
 		}
@@ -182,20 +187,23 @@ public class TaringueroController {
 			    usuario.setFacha(taringueroDto.getFacha());
 
 			    Set<Version> listaUsuVer = new  HashSet<Version>();
-				for (String var : taringueroDto.getVersiones()) {
-					Optional<Version> version = versionServices.getVersion(var);
-				    if (version.isPresent()){
-					    listaUsuVer.add(version.get());
-				    }
-				    else{
-				    	throw new Exception();
-				    }
-				}
+			    if(taringueroDto.getVersiones() != null ) {
+					for (String var : taringueroDto.getVersiones()) {
+						Optional<Version> version = versionServices.getVersion(var);
+					    if (version.isPresent()){
+						    listaUsuVer.add(version.get());
+					    }
+					    else{
+					    	throw new Exception();
+					    }
+					}
+			    }
 				usuario.setVersiones(listaUsuVer);
 				usuarioServices.guardar(usuario);
 				//throw new Exception();
 				return "redirect:/taringuero/modificar";
 			}catch(Exception ex){
+				//ex.printStackTrace();
 				return "redirect:/taringuero/error";
 			}
 		}

@@ -33,6 +33,18 @@ public class TaringueroDto {
 	
 	public TaringueroDto() {
 	}
+	
+	public TaringueroDto(Long id, String nombreUsuario,String genero, String sigoVirgo, String facha, 
+			             String versionestexto, Integer edad,List<Integer> datosPaginador) {
+		this.id = id;
+		this.nombreUsuario = nombreUsuario;
+		this.edad = edad;
+		this.genero = genero;
+		this.sigoVirgo = sigoVirgo;
+		this.facha = facha;
+		this.versionestexto = versionestexto;
+		this.datosPaginador = datosPaginador;
+	}
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
