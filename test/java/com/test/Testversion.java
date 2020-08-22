@@ -1,13 +1,10 @@
 package com.test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import javax.persistence.PersistenceContext;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,8 +15,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.springdemo.config.DemoAppConfig;
+import com.springdemo.config.DispatcherServletInitializer;
+import com.springdemo.db.config.JpaConfig;
 import com.springdemo.db.entity.Genero;
 import com.springdemo.db.entity.Usuario;
 import com.springdemo.db.entity.Version;
@@ -30,8 +31,13 @@ import com.springdemo.services.VersionServices;
 
 @ExtendWith(SpringExtension.class)
 @Transactional
-@ContextConfiguration("file:WebContent/WEB-INF/spring-mvc-demo-servlet.xml")
-@PersistenceContext(unitName = "TaringaDB")
+//si el proyecto esta en xml
+//@PersistenceContext(unitName = "TaringaDB")
+//@ContextConfiguration("file:WebContent/WEB-INF/spring-mvc-demo-servlet.xml")
+//si esta con clases
+@ContextConfiguration(
+        classes={DemoAppConfig.class, DispatcherServletInitializer.class, JpaConfig.class})
+@WebAppConfiguration
 class Testversion {
 	
 	@Autowired
@@ -76,7 +82,7 @@ class Testversion {
 		}
 	}
 	
-	@Disabled("Ya esta testeado")
+	//@Disabled("Ya esta testeado")
 	@Test
 	public void retornarSetUsuarios() {
 		Pageable pageable = PageRequest.of(0, 5);
@@ -90,7 +96,7 @@ class Testversion {
 		assertTrue(retornarSetUsuarios.size() >= 0);
 	}
 	
-	//@Disabled("Ya esta testeado")
+	@Disabled("Ya esta testeado")
 	@Test
 	@Rollback(false)
 	public void guardarUsuario() {
