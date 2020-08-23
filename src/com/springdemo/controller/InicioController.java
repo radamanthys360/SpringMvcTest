@@ -18,12 +18,11 @@ public class InicioController {
 		LoginDto login = new LoginDto();
 		modelo.addAttribute("loginDto",login);
 		return "inicio";
-		//return "menu-inicio";
 	}
 	
 	
 	@RequestMapping("/login")
-	public String procesarform(@Valid @ModelAttribute("loginDto") LoginDto loginDto,
+	public String login(@Valid @ModelAttribute("loginDto") LoginDto loginDto,
 			                   BindingResult theBindingResult,Model modelo) {
 		if (theBindingResult.hasErrors()) {
 			return "inicio";
@@ -32,9 +31,11 @@ public class InicioController {
 			//simulando login
 			if(loginDto.getUsuario().contentEquals("admin") &&
 			   loginDto.getClave().contentEquals("admin")	) {
+				System.out.println("login Correcto");
 				return "menu-inicio";
 			}else {
 				LoginDto login = new LoginDto();
+				System.out.println("login Incorrecto");
 				modelo.addAttribute("loginDto",login);
 				modelo.addAttribute("error","S");
 				modelo.addAttribute("mensaje","Usuario y clave no existen");

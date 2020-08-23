@@ -104,6 +104,23 @@
 		<version>1.2</version>
 	</dependency>
 	
+<!-- 	para AOP-->	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aop</artifactId>
+	    <version>5.2.8.RELEASE</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aspects</artifactId>
+	    <version>5.2.8.RELEASE</version>
+	</dependency>
+	
+<!--find AOP-->		
+	
 <!-- 	para testeo -->
 	<dependency>
 		<groupId>org.junit.jupiter</groupId>
