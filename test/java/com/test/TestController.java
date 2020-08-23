@@ -101,7 +101,7 @@ class TestController {
                 new TaringueroDto((long) 02,"test111","MASCULINO","S","S","V5,V6",29,listaPaginador)
         );
     	pageable = PageRequest.of(0, 5);
-    	Mockito.when(usuarioServices.busquedaTotal("111",pageable)).thenReturn(usuarioDTO2);
+    	Mockito.when(usuarioServices.getSearchUsuario("111",pageable)).thenReturn(usuarioDTO2);
        //probando la busqueda por texto y paginada
              mockMvc
             .perform(get("/taringuero/mostrarformP")

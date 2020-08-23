@@ -14,7 +14,7 @@ import com.springdemo.dto.LoginDto;
 public class InicioController {
 	
 	@RequestMapping("/")
-	public String mostrarInicio(Model modelo) {
+	public String mostrarForm(Model modelo) {
 		LoginDto login = new LoginDto();
 		modelo.addAttribute("loginDto",login);
 		return "inicio";

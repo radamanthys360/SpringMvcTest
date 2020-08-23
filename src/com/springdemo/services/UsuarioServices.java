@@ -32,7 +32,7 @@ public class UsuarioServices {
 	}
 	
 	@Transactional
-	public List<TaringueroDto> retornarSetUsuarios(Pageable pageable){
+	public List<TaringueroDto> getAllUsuarios(Pageable pageable){
 		List<TaringueroDto> usuarios = new ArrayList<TaringueroDto>();
 		Page<Usuario> paginado = getPaginado(pageable);
 		for (Usuario var : paginado) {
@@ -68,7 +68,7 @@ public class UsuarioServices {
 	}
 	
 	@Transactional
-	public List<TaringueroDto> busquedaTotal(String texto,Pageable pageable) {
+	public List<TaringueroDto> getSearchUsuario(String texto,Pageable pageable) {
 			List<TaringueroDto> usuarios = new ArrayList<TaringueroDto>();
 			Page<Usuario> busquedaTotal = usuarioRepository.busquedaTotal(texto,pageable);
 			for (Usuario var : busquedaTotal) {
@@ -100,13 +100,13 @@ public class UsuarioServices {
 	}
 	
 	@Transactional
-	public Optional<Usuario> buscarPorId(Long id) {
+	public Optional<Usuario> getUsuario(Long id) {
 		return usuarioRepository.findById(id);
 	}
 	
 	@Transactional
-	public TaringueroDto buscarPorIdDto(Long id) {
-		Optional<Usuario> entidad = buscarPorId(id);
+	public TaringueroDto getUsuarioDto(Long id) {
+		Optional<Usuario> entidad = getUsuario(id);
 		if(entidad.isPresent()) {
 			int contador = 0;
 			Usuario var = entidad.get();

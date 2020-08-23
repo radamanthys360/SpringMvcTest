@@ -88,7 +88,7 @@ public class TaringueroController {
 		modelo.addAttribute("taringueroDto",taringueroDtoF);
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.getAllUsuarios(pageable);
 		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
 		List<Integer> datosPaginador = new ArrayList<Integer>();
@@ -112,7 +112,7 @@ public class TaringueroController {
 		//llenando tabla por defecto el primer set de 5 registros
 		Pageable pageable = PageRequest.of((pag -1), SET_DATOS);
 		if(tipo == 1) {
-			List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+			List<TaringueroDto> retornarSetUsuarios = usuarioServices.getAllUsuarios(pageable);
 			modelo.addAttribute("tabladata",retornarSetUsuarios);
 			//ajustando elementos del paginador
 			List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
@@ -120,7 +120,7 @@ public class TaringueroController {
 			modelo.addAttribute("mensajeP","Pagina "+(pag)+" de "+datosPaginador.size());
 			modelo.addAttribute("busqueda","1");
 		}else if(tipo == 2){
-			List<TaringueroDto> busquedaTotal = usuarioServices.busquedaTotal(texto, pageable);
+			List<TaringueroDto> busquedaTotal = usuarioServices.getSearchUsuario(texto, pageable);
 			modelo.addAttribute("tabladata",busquedaTotal);
 			//ajustando elementos del paginador
 			List<Integer> datosPaginador = busquedaTotal.get(0).getDatosPaginador();
@@ -139,7 +139,7 @@ public class TaringueroController {
 		modelo.addAttribute("taringueroDto",taringueroDtoF);
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		List<TaringueroDto> busquedaTotal = usuarioServices.busquedaTotal(buscar, pageable);
+		List<TaringueroDto> busquedaTotal = usuarioServices.getSearchUsuario(buscar, pageable);
 		modelo.addAttribute("tabladata",busquedaTotal);
 		//ajustando elementos del paginador
 		List<Integer> datosPaginador = new ArrayList<Integer>();
@@ -165,7 +165,7 @@ public class TaringueroController {
 			try {
 				Usuario usuario;
 				if(taringueroDto.getId() != null) {
-					Optional<Usuario> buscarPorId = usuarioServices.buscarPorId(taringueroDto.getId());
+					Optional<Usuario> buscarPorId = usuarioServices.getUsuario(taringueroDto.getId());
 					if(buscarPorId.isPresent()) {
 					   usuario = buscarPorId.get();
 					}else {
@@ -217,12 +217,12 @@ public class TaringueroController {
 			modelo.addAttribute("guardar","S");
 			modelo.addAttribute("mensaje","Guardado Correctamente");
 		}else {
-			TaringueroDto taringueroDto = usuarioServices.buscarPorIdDto(id);
+			TaringueroDto taringueroDto = usuarioServices.getUsuarioDto(id);
 			modelo.addAttribute("taringueroDto",taringueroDto);
 		}
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.getAllUsuarios(pageable);
 		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
 		List<Integer> datosPaginador = retornarSetUsuarios.get(0).getDatosPaginador();
@@ -241,7 +241,7 @@ public class TaringueroController {
 		modelo.addAttribute("mensaje","Ha ocurrido un error al tratar de ejecutar la operacion");
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.getAllUsuarios(pageable);
 		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
 		List<Integer> datosPaginador = new ArrayList<Integer>();
@@ -265,7 +265,7 @@ public class TaringueroController {
 		modelo.addAttribute("mensaje","Eliminado Correctamente");
 		//llenando tabla por defecto el primer set 
 		Pageable pageable = PageRequest.of(0, SET_DATOS);
-		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.getAllUsuarios(pageable);
 		modelo.addAttribute("tabladata",retornarSetUsuarios);
 		//ajustando elementos del paginador
 		List<Integer> datosPaginador = new ArrayList<Integer>();

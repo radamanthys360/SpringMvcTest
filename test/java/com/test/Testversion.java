@@ -86,7 +86,7 @@ class Testversion {
 	@Test
 	public void retornarSetUsuarios() {
 		Pageable pageable = PageRequest.of(0, 5);
-		List<TaringueroDto> retornarSetUsuarios = usuarioServices.retornarSetUsuarios(pageable);
+		List<TaringueroDto> retornarSetUsuarios = usuarioServices.getAllUsuarios(pageable);
 		System.out.println("* cantidad de registros "+retornarSetUsuarios.size());
 		for (TaringueroDto taringueroDto : retornarSetUsuarios) {
 			System.out.println("*** registro **** "+
@@ -118,7 +118,7 @@ class Testversion {
 			//taringueroDto.setId( (long)30);
 			Usuario usuario;
 			if(taringueroDto.getId() != null) {
-				Optional<Usuario> buscarPorId = usuarioServices.buscarPorId(taringueroDto.getId());
+				Optional<Usuario> buscarPorId = usuarioServices.getUsuario(taringueroDto.getId());
 				if(buscarPorId.isPresent()) {
 				   usuario = buscarPorId.get();
 				}else {
