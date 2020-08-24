@@ -21,23 +21,23 @@ public class ServiceAspect {
 	@Pointcut("(getUsuario()) & (guardar())")
 	private void modificarUsuario() {}
 	
-	//para todos los metodos de la clase que comienzen con get
-	@Before("execution(* com.springdemo.services.UsuarioServices.get* (..) )")
-	public void beforeGetsUsuarioServices() {
-		System.out.println("\n=====>>> ejecutar @Before(antes) "
-				+ "de todos los metodos que comienzen con get en Usuario Services ");
-	}
-	
-	//para todos los metodos de un paquete especificado
-	@Before("execution(* com.springdemo.services.*.* (..) )")
-	public void beforePaqueteServices() {
-		System.out.println("\n=====>>> ejecutar @Before(antes) "
-				+ "de todos los metodos del paquete de servicios ");
-	}
-	
-	@Before("modificarUsuario()")
-	public void modificarUsuarioAspect() {
-		System.out.println("\n=====>>> se modifico un usuario");		
-	}
+//	//para todos los metodos de la clase que comienzen con get
+//	@Before("execution(* com.springdemo.services.UsuarioServices.get* (..) )")
+//	public void beforeGetsUsuarioServices() {
+//		System.out.println("\n=====>>> ejecutar @Before(antes) "
+//				+ "de todos los metodos que comienzen con get en Usuario Services ");
+//	}
+//	
+//	//para todos los metodos de un paquete especificado
+//	@Before("execution(* com.springdemo.services.*.* (..) )")
+//	public void beforePaqueteServices() {
+//		System.out.println("\n=====>>> ejecutar @Before(antes) "
+//				+ "de todos los metodos del paquete de servicios ");
+//	}
+//	
+//	@Before("modificarUsuario()")
+//	public void modificarUsuarioAspect() {
+//		System.out.println("\n=====>>> se modifico un usuario");		
+//	}
 	
 }
