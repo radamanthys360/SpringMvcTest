@@ -51,7 +51,7 @@ public class JpaConfig {
     
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.show_sql", "true");
+        hibernateProperties.setProperty("hibernate.show_sql", "false");
         hibernateProperties.setProperty("hibernate.format_sql", "true");
         return hibernateProperties;
     }

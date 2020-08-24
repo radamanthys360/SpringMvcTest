@@ -83,7 +83,7 @@ public class TaringueroController {
 	}
 	
 	@RequestMapping("/mostrarform")
-	public String mostrarform(Model modelo) {
+	public String mostrarForm(Model modelo) {
 		TaringueroDto taringueroDtoF = new TaringueroDto();
 		modelo.addAttribute("taringueroDto",taringueroDtoF);
 		//llenando tabla por defecto el primer set 
