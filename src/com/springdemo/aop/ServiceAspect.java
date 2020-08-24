@@ -1,9 +1,15 @@
 package com.springdemo.aop;
 
+import java.util.List;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+
+import com.springdemo.dto.TaringueroDto;
 
 @Aspect
 @Component
@@ -39,5 +45,22 @@ public class ServiceAspect {
 //	public void modificarUsuarioAspect() {
 //		System.out.println("\n=====>>> se modifico un usuario");		
 //	}
+	
+	//luego de la ejecucion de un metodo
+	@AfterReturning(
+			pointcut="execution(* com.springdemo.services.UsuarioServices.getSearchUsuario(..))",
+			returning="usuarios")
+	public void afterReturningGetSearchUsuario(JoinPoint theJoinPoint, List<TaringueroDto> usuarios) {		
+		// obtenemos el nombre del metodo a ejecutar
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
+				
+		// el arreglo de datos que trae 
+		System.out.println("\n=====>>> result is: " + usuarios);
+		//prueba de manipulacion de la data se pasa a mayuscula el nombre de usuario
+		for (TaringueroDto temp : usuarios) {
+			temp.setNombreUsuario(temp.getNombreUsuario().toUpperCase());
+		}
+	}
 	
 }
