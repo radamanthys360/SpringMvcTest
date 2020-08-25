@@ -23,7 +23,7 @@ public class InicioController {
 	
 	@RequestMapping("/login")
 	public String login(@Valid @ModelAttribute("loginDto") LoginDto loginDto,
-			                   BindingResult theBindingResult,Model modelo) {
+			                   BindingResult theBindingResult,Model modelo) throws Exception {
 		if (theBindingResult.hasErrors()) {
 			return "inicio";
 		}
@@ -39,7 +39,8 @@ public class InicioController {
 				modelo.addAttribute("loginDto",login);
 				modelo.addAttribute("error","S");
 				modelo.addAttribute("mensaje","Usuario y clave no existen");
-				return "inicio";
+				throw new Exception("Error login credenciales de fbi ");//prueba para generar error.
+				//return "inicio";
 			}
 		}
 	}

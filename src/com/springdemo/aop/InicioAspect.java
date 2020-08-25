@@ -1,6 +1,8 @@
 package com.springdemo.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -43,5 +45,25 @@ public class InicioAspect {
 //			}
 //		}
 //	}
-
+	
+	//luego de un error en el metodo
+	@AfterThrowing(
+			pointcut="execution(* com.springdemo.controller.InicioController.login (..))",
+			throwing="theExc")
+	public void afterThrowingLogin(JoinPoint theJoinPoint, Throwable theExc) {		
+		// obtenemos el nombre del metodo a ejecutar
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
+		//  exception
+		System.out.println("\n=====>>> The exception is: " + theExc);
+	}
+	
+	//si da error o no usamos esto luego de la ejecucion del metodo.
+	@After("execution(* com.springdemo.controller.InicioController.login (..))")
+	public void afterLogin(JoinPoint theJoinPoint) {		
+		// obtenemos el nombre del metodo a ejecutar
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @After on method: " + method);
+	}
+	
 }
