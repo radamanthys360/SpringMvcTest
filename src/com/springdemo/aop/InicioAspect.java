@@ -107,25 +107,25 @@ public class InicioAspect {
 	
 	
 	//esto lo usamos para controlar el antes y despues de le ejecucion del metodo ejemplo 3
-	@Around("execution(* com.springdemo.controller.InicioController.login (..))")
-	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-		
-		String method = proceedingJoinPoint.getSignature().toShortString();
-		System.out.println("\n=====>>> Executing @Around : " + method);
-		
-		// ejecutando el metodo
-		Object result = null;
-		try {
-			result = proceedingJoinPoint.proceed();
-		} catch (Throwable e) {
-			System.out.println("grave ha sucedido un error " + e.getMessage());
-			throw e;
-		}
-		
-		System.out.println("\n=====> resultado: " + result);
-		
-		return result;
-	}
+//	@Around("execution(* com.springdemo.controller.InicioController.login (..))")
+//	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+//		
+//		String method = proceedingJoinPoint.getSignature().toShortString();
+//		System.out.println("\n=====>>> Executing @Around : " + method);
+//		
+//		// ejecutando el metodo
+//		Object result = null;
+//		try {
+//			result = proceedingJoinPoint.proceed();
+//		} catch (Throwable e) {
+//			System.out.println("grave ha sucedido un error " + e.getMessage());
+//			throw e;
+//		}
+//		
+//		System.out.println("\n=====> resultado: " + result);
+//		
+//		return result;
+//	}
 	
 	
 }

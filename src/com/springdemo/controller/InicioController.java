@@ -39,8 +39,8 @@ public class InicioController {
 				modelo.addAttribute("loginDto",login);
 				modelo.addAttribute("error","S");
 				modelo.addAttribute("mensaje","Usuario y clave no existen");
-				throw new Exception("Error login credenciales de fbi ");//prueba para generar error.
-				//return "inicio";
+				//throw new Exception("Error login credenciales de fbi ");//prueba para generar error.
+				return "inicio";
 			}
 		}
 	}

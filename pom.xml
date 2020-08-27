@@ -4,6 +4,16 @@
   <artifactId>SpringMvcTest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  
+  <properties>
+	<springframework.version>5.2.8.RELEASE</springframework.version>
+	<springframework.data>2.3.2.RELEASE</springframework.data>
+	<org.hibernate>5.4.19.Final</org.hibernate>
+	<hibernate.validator>6.1.5.Final</hibernate.validator>
+	
+	<springsecurity.version>4.2.3.RELEASE</springsecurity.version>
+  </properties>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -24,56 +34,57 @@
       </plugin>
     </plugins>
   </build>
+  
   <dependencies>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-core</artifactId>
-  		<version>5.2.8.RELEASE</version>
+  		<version>${springframework.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-web</artifactId>
-  		<version>5.2.8.RELEASE</version>
+  		<version>${springframework.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-webmvc</artifactId>
-  		<version>5.2.8.RELEASE</version>
+  		<version>${springframework.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-expression</artifactId>
-  		<version>5.2.8.RELEASE</version>
+  		<version>${springframework.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-context</artifactId>
-  		<version>5.2.8.RELEASE</version>
+  		<version>${springframework.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-beans</artifactId>
-  		<version>5.2.8.RELEASE</version>
+  		<version>${springframework.version}</version>
   	</dependency>
   	
   	<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>5.2.8.RELEASE</version>
+			<version>${springframework.version}</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons -->
 	<dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-commons</artifactId>
-	    <version>2.3.2.RELEASE</version>
+	    <version>${springframework.data}</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 	<dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-jpa</artifactId>
-	    <version>2.3.2.RELEASE</version>
+	    <version>${springframework.data}</version>
 	</dependency>
 	
 	
@@ -81,7 +92,7 @@
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
-	    <version>5.4.19.Final</version>
+	    <version>${org.hibernate}</version>
 	</dependency>
 	
 <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
@@ -95,7 +106,7 @@
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.1.5.Final</version>
+	    <version>${hibernate.validator}</version>
 	</dependency>
 
 	<dependency>
@@ -109,14 +120,14 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-aop</artifactId>
-	    <version>5.2.8.RELEASE</version>
+	    <version>${springframework.version}</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-aspects</artifactId>
-	    <version>5.2.8.RELEASE</version>
+	    <version>${springframework.version}</version>
 	</dependency>
 	
 <!--find AOP-->		
@@ -132,7 +143,7 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-test</artifactId>
-	    <version>5.2.8.RELEASE</version>
+	    <version>${springframework.version}</version>
 	    <scope>test</scope>
 	</dependency>
 	
