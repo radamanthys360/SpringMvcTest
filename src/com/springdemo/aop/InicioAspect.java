@@ -1,8 +1,10 @@
 package com.springdemo.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -47,23 +49,83 @@ public class InicioAspect {
 //	}
 	
 	//luego de un error en el metodo
-	@AfterThrowing(
-			pointcut="execution(* com.springdemo.controller.InicioController.login (..))",
-			throwing="theExc")
-	public void afterThrowingLogin(JoinPoint theJoinPoint, Throwable theExc) {		
-		// obtenemos el nombre del metodo a ejecutar
-		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
-		//  exception
-		System.out.println("\n=====>>> The exception is: " + theExc);
-	}
+//	@AfterThrowing(
+//			pointcut="execution(* com.springdemo.controller.InicioController.login (..))",
+//			throwing="theExc")
+//	public void afterThrowingLogin(JoinPoint theJoinPoint, Throwable theExc) {		
+//		// obtenemos el nombre del metodo a ejecutar
+//		String method = theJoinPoint.getSignature().toShortString();
+//		System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
+//		//  exception
+//		System.out.println("\n=====>>> The exception is: " + theExc);
+//	}
 	
 	//si da error o no usamos esto luego de la ejecucion del metodo.
-	@After("execution(* com.springdemo.controller.InicioController.login (..))")
-	public void afterLogin(JoinPoint theJoinPoint) {		
-		// obtenemos el nombre del metodo a ejecutar
-		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("\n=====>>> Executing @After on method: " + method);
+//	@After("execution(* com.springdemo.controller.InicioController.login (..))")
+//	public void afterLogin(JoinPoint theJoinPoint) {		
+//		// obtenemos el nombre del metodo a ejecutar
+//		String method = theJoinPoint.getSignature().toShortString();
+//		System.out.println("\n=====>>> Executing @After on method: " + method);
+//	}
+	
+	
+	//esto lo usamos para controlar el antes y despues de le ejecucion del metodo Ejemplo 1
+//	@Around("execution(* com.springdemo.controller.InicioController.login (..))")
+//	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+//		
+//		String method = proceedingJoinPoint.getSignature().toShortString();
+//		System.out.println("\n=====>>> Executing @Around : " + method);
+//		
+//		// ejecutando el metodo
+//		Object result = proceedingJoinPoint.proceed();
+//		
+//		System.out.println("\n=====> resultado: " + result);
+//		
+//		return result;
+//	}
+	
+	//esto lo usamos para controlar el antes y despues de le ejecucion del metodo ejemplo 2
+//	@Around("execution(* com.springdemo.controller.InicioController.login (..))")
+//	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+//		
+//		String method = proceedingJoinPoint.getSignature().toShortString();
+//		System.out.println("\n=====>>> Executing @Around : " + method);
+//		
+//		// ejecutando el metodo
+//		Object result = null;
+//		try {
+//			result = proceedingJoinPoint.proceed();
+//		} catch (Throwable e) {
+//			System.out.println("grave ha sucedido un error " + e.getMessage());
+//			result = "inicio";
+//		}
+//		
+//		System.out.println("\n=====> resultado: " + result);
+//		
+//		return result;
+//	}
+	
+	
+	//esto lo usamos para controlar el antes y despues de le ejecucion del metodo ejemplo 3
+	@Around("execution(* com.springdemo.controller.InicioController.login (..))")
+	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+		
+		String method = proceedingJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @Around : " + method);
+		
+		// ejecutando el metodo
+		Object result = null;
+		try {
+			result = proceedingJoinPoint.proceed();
+		} catch (Throwable e) {
+			System.out.println("grave ha sucedido un error " + e.getMessage());
+			throw e;
+		}
+		
+		System.out.println("\n=====> resultado: " + result);
+		
+		return result;
 	}
+	
 	
 }
