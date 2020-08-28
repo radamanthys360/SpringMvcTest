@@ -10,8 +10,7 @@
 	<springframework.data>2.3.2.RELEASE</springframework.data>
 	<org.hibernate>5.4.19.Final</org.hibernate>
 	<hibernate.validator>6.1.5.Final</hibernate.validator>
-	
-	<springsecurity.version>4.2.3.RELEASE</springsecurity.version>
+	<springsecurity.version>5.3.3.RELEASE</springsecurity.version>
   </properties>
   
   <build>
@@ -114,6 +113,22 @@
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
 	</dependency>
+	
+<!-- 	para spring security-->		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>	
+	
+<!-- 	fin spring security-->	
+
 	
 <!-- 	para AOP-->	
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->

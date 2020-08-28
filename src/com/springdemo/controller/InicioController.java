@@ -17,7 +17,8 @@ public class InicioController {
 	public String mostrarForm(Model modelo) {
 		LoginDto login = new LoginDto();
 		modelo.addAttribute("loginDto",login);
-		return "inicio";
+		return "menu-inicio"; // solo para test de configuracion de spring
+		//return "inicio";
 	}
 	
 	
