@@ -5,7 +5,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Inicio Spring MVC</title>
+  <title>Spring MVC</title>
 
   <!-- Bootstrap CSS File -->
   <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">

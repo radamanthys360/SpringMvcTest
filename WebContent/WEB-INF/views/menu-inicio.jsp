@@ -37,9 +37,8 @@
           Formularios
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="taringuero/mostrarform">Taringuero</a>
-          <a class="dropdown-item" href="#">Formulario 2</a>
-          <a class="dropdown-item" href="#">Formulario 3</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/taringuero/mostrarform">Taringuero</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/poringuero/mostrarform">Poringuero</a>
         </div>
       </li>
     </ul>
