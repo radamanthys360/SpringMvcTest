@@ -5,8 +5,11 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -17,8 +20,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.springdemo.db.repository"})
+@PropertySource("classpath:/com/springdemo/properties/db.properties")
 @EnableTransactionManagement
 public class JpaConfig {
+	
+    @Autowired
+    Environment env;
 	
 	public JpaConfig() {
 		super();
@@ -27,10 +34,10 @@ public class JpaConfig {
 	@Bean
 	public DataSource dataSource() {
 	 final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	 dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-	 dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-	 dataSource.setUsername("TARINGA");
-	 dataSource.setPassword("TAR123456");
+	 dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
+	 dataSource.setUrl(env.getProperty("jdbc.url"));
+	 dataSource.setUsername(env.getProperty("jdbc.username"));
+	 dataSource.setPassword(env.getProperty("jdbc.clave"));
 	 return dataSource;
 	}
 	
@@ -51,8 +58,8 @@ public class JpaConfig {
     
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.show_sql", "false");
-        hibernateProperties.setProperty("hibernate.format_sql", "true");
+        hibernateProperties.setProperty(env.getProperty("hibernate.show_sql"), env.getProperty("hibernate.show_sql.flag"));
+        hibernateProperties.setProperty(env.getProperty("hibernate.format_sql"), env.getProperty("hibernate.format_sql.flag"));
         return hibernateProperties;
     }
      
