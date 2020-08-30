@@ -16,6 +16,11 @@ public class InicioController {
 	@GetMapping("/inicio")
 	public String inicio() {
 		return "inicio";
-	}	
+	}
+	
+	@GetMapping("/denegado")
+	public String denegado() {
+		return "denegado";
+	}
 
 }
