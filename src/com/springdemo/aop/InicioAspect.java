@@ -10,8 +10,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import com.springdemo.dto.LoginDto;
-
 @Aspect
 @Component
 public class InicioAspect {

@@ -1,6 +1,8 @@
 package com.test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +24,12 @@ import com.springdemo.config.DemoAppConfig;
 import com.springdemo.config.DispatcherServletInitializer;
 import com.springdemo.db.config.JpaConfig;
 import com.springdemo.db.entity.Genero;
+import com.springdemo.db.entity.PermisoRecurso;
 import com.springdemo.db.entity.Usuario;
 import com.springdemo.db.entity.Version;
 import com.springdemo.dto.TaringueroDto;
 import com.springdemo.services.GeneroServices;
+import com.springdemo.services.PermisoRecursoServices;
 import com.springdemo.services.UsuarioServices;
 import com.springdemo.services.VersionServices;
 
@@ -48,6 +52,20 @@ class Testversion {
 	
 	@Autowired
 	private GeneroServices generoServices;
+	
+	@Autowired
+	private PermisoRecursoServices permisoRecursoServices;
+	
+	@Disabled("Ya esta testeado")
+	@Test
+	public void findPermisoRecurso() {
+		Object[][] findPermisoRecurso = permisoRecursoServices.findPermisoRecurso();
+	      for (Object[] var : findPermisoRecurso) {
+	          System.out.println("recurso: " + var[0]);
+	          System.out.println("rol: " + var[1]);
+	      }
+		assertTrue(findPermisoRecurso.length >= 0);
+	}
 	
 
 	@Disabled("Ya esta testeado")
@@ -82,7 +100,7 @@ class Testversion {
 		}
 	}
 	
-	//@Disabled("Ya esta testeado")
+	@Disabled("Ya esta testeado")
 	@Test
 	public void retornarSetUsuarios() {
 		Pageable pageable = PageRequest.of(0, 5);

@@ -37,10 +37,10 @@
           Formularios
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <security:authorize access="hasRole('TARINGUERO')">
+        <security:authorize access="hasAnyRole('TARINGUERO','ADMIN')">
           <a class="dropdown-item" href="${pageContext.request.contextPath}/taringuero/mostrarform">Taringuero</a>
         </security:authorize>
-        <security:authorize access="hasRole('PORINGUERO')">	  
+        <security:authorize access="hasAnyRole('PORINGUERO','ADMIN')">	  
           <a class="dropdown-item" href="${pageContext.request.contextPath}/poringuero/mostrarform">Poringuero</a>
         </security:authorize>  
         </div>
