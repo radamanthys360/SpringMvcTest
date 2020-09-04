@@ -151,7 +151,15 @@
 	    <version>${springframework.version}</version>
 	</dependency>
 	
-<!--find AOP-->		
+<!--find AOP-->	
+
+<!-- 	para rest -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+<!-- 	fin rest -->
 	
 <!-- 	para testeo -->
 	<dependency>
