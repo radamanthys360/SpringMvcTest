@@ -1,4 +1,4 @@
-package com.springdemo.controller;
+package com.springdemo.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
