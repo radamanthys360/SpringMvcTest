@@ -140,6 +140,35 @@ public class UsuarioServices {
 			
 	}
 	
+	@Transactional
+	public TaringueroDto getUsuarioDtoFromEntity(Usuario var) {
+			int contador = 0;
+			String versionesTexto = "";
+			TaringueroDto taringueroDtoT = new TaringueroDto();
+			taringueroDtoT.setId(var.getCodigo());
+			taringueroDtoT.setNombreUsuario(var.getNombreUsuario());
+			taringueroDtoT.setEdad(var.getEdad());
+			taringueroDtoT.setGenero(var.getGenero().getTipo());
+			taringueroDtoT.setSigoVirgo(var.getSigoVirgo());
+			taringueroDtoT.setFacha(var.getFacha());
+			Set<Version> versiones = var.getVersiones();
+			String[] versionesDto = new String[versiones.size()];;
+			for (Version version : versiones) {
+				if(versiones.size() > 1) {
+					versionesTexto += version.getCodigo()+",";
+					versionesDto[contador] = version.getCodigo();
+					contador++;
+				}else {
+					versionesTexto += version.getCodigo();
+					versionesDto[contador] = version.getCodigo();
+					contador++;
+				}
+			}
+			taringueroDtoT.setVersiones(versionesDto);
+			taringueroDtoT.setVersionestexto(versionesTexto);
+			return taringueroDtoT;
+	}
+	
 	public void eliminar(Long id) {
 		usuarioRepository.deleteById(id);
 	}

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class TaringueroDto {
 
 	private Long id;
@@ -26,9 +28,11 @@ public class TaringueroDto {
 	private String facha;
 	
 	private String[] versiones;
+	@JsonIgnore
 	private String versionestexto;
 	
 	//paginacion
+	@JsonIgnore
 	private List<Integer> datosPaginador;
 	
 	public TaringueroDto() {

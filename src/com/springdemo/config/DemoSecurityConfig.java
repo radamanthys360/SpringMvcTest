@@ -39,6 +39,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout().permitAll()
 				.and()
 				.exceptionHandling().accessDeniedPage("/denegado");
+		http.csrf().disable(); // temporal solo para test rest sin seguridad
 	}
 	
 	private HttpSecurity permisos(HttpSecurity http) throws Exception {
