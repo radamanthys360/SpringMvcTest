@@ -1,3 +1,37 @@
+//json de prueba
+{
+    "nombreUsuario": "TestRest",
+    "edad": 31,
+    "genero": "FEMENINO",
+    "sigoVirgo": "N",
+    "facha": "N",
+    "versiones": [
+        "V3",
+        "V4",
+        "V5",
+        "V6"
+    ]
+}
+
+{
+    "id": 46,
+    "nombreUsuario": "TestRestUpdate",
+    "edad": 19,
+    "genero": "FEMENINO",
+    "sigoVirgo": "N",
+    "facha": "N",
+    "versiones": [
+        "V3",
+        "V4",
+        "V5",
+        "V6"
+    ]
+}
+
+//
+
+
+
 --codigo para seguridad en spring
 --------------------------------------------------------
 --  DDL for Table USERS
