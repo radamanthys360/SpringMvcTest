@@ -25,10 +25,12 @@ import com.springdemo.config.DispatcherServletInitializer;
 import com.springdemo.db.config.JpaConfig;
 import com.springdemo.db.entity.Genero;
 import com.springdemo.db.entity.PermisoRecurso;
+import com.springdemo.db.entity.Users;
 import com.springdemo.db.entity.Usuario;
 import com.springdemo.db.entity.Version;
 import com.springdemo.dto.TaringueroDto;
 import com.springdemo.services.GeneroServices;
+import com.springdemo.services.JwtUserDetailsService;
 import com.springdemo.services.PermisoRecursoServices;
 import com.springdemo.services.UsuarioServices;
 import com.springdemo.services.VersionServices;
@@ -42,7 +44,7 @@ import com.springdemo.services.VersionServices;
 @ContextConfiguration(
         classes={DemoAppConfig.class, DispatcherServletInitializer.class, JpaConfig.class})
 @WebAppConfiguration
-class Testversion {
+class TestServices {
 	
 	@Autowired
 	private VersionServices versionServices;
@@ -55,6 +57,20 @@ class Testversion {
 	
 	@Autowired
 	private PermisoRecursoServices permisoRecursoServices;
+	
+	@Autowired
+	private JwtUserDetailsService jwtUserDetailsService;
+	
+	//@Disabled("Ya esta testeado")
+//	@Test
+//	public void credenciales() {
+//		Users credenciales = jwtUserDetailsService.findByUsername("facha");		
+//		System.out.println("*** registro **** "+
+//		           "*** username **** "+credenciales.getUsername()+
+//		           "*** clave **** "+credenciales.getPassword());
+//		assertNotNull(credenciales, () -> "Version trae valor");
+//
+//	}
 	
 	@Disabled("Ya esta testeado")
 	@Test
