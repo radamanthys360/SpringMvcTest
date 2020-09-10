@@ -3,6 +3,7 @@ package com.springdemo.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.springdemo.services.PermisoRecursoServices;
 
 //seguridad para proyecto spring Rest.
 @Configuration
@@ -29,6 +32,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
+	
+	@Autowired
+	private PermisoRecursoServices permisoRecursoServices;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -51,19 +57,34 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		HttpSecurity permisos = permisos(httpSecurity);
 		// no necesitamos este tipo de comunicacion
-		httpSecurity.csrf().disable()
+		permisos.csrf().disable()
 				// solamente acceden todos al rest de autenticacion
-				.authorizeRequests().antMatchers("/authenticate").permitAll().
+				.authorizeRequests()
+				.antMatchers("/authenticate").permitAll().
+				
 				// las demas necesitan autenticacion
 				anyRequest().authenticated().and().
 				// nos aseguramos de usar un stateless session
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		// añadimos el filtro para cada peticion
-		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		permisos.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		
 	}
+	
+	private HttpSecurity permisos(HttpSecurity http) throws Exception {
+		Object[][] findPermisoRecurso = permisoRecursoServices.findPermisoRecurso();
+		for (Object[] permisosDto : findPermisoRecurso) {
+			http.authorizeRequests().antMatchers(permisosDto[0].toString()).hasAnyRole(permisosDto[1].toString());
+		}
+		return http;
+	}
+	
+	
 }
+
 
 
 // seguridad para proyecto spring mvc.
