@@ -10,7 +10,7 @@
 	<springframework.data>2.3.2.RELEASE</springframework.data>
 	<org.hibernate>5.4.19.Final</org.hibernate>
 	<hibernate.validator>6.1.5.Final</hibernate.validator>
-	<springsecurity.version>5.3.3.RELEASE</springsecurity.version>
+	<springsecurity.version>5.3.9.RELEASE</springsecurity.version>
   </properties>
   
   <build>
