@@ -8,7 +8,7 @@
   <properties>
 	<springframework.version>5.2.8.RELEASE</springframework.version>
 	<springframework.data>2.3.2.RELEASE</springframework.data>
-	<org.hibernate>5.4.19.Final</org.hibernate>
+	<org.hibernate>5.4.24.Final</org.hibernate>
 	<hibernate.validator>6.1.5.Final</hibernate.validator>
 	<springsecurity.version>5.3.3.RELEASE</springsecurity.version>
   </properties>
